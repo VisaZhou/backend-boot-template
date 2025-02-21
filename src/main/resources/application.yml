@@ -15,3 +15,17 @@ server:
   compression:
     enabled: true
     mime-types: application/json
+
+springdoc:
+  swagger-ui:
+    path: /doc.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+    show-extensions: true
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'backend-boot-template'
+      paths-to-match: '/**'
+      packages-to-scan: org.visage.backend.controller
+  default-flat-param-object: false
