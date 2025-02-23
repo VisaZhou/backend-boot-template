@@ -1,7 +1,7 @@
-# 使用 OpenJDK 23 的官方基础镜像，这里使用 slim 版本，体积较小。
 ARG REPOSITORY_URL
 ARG REPOSITORY_NAMESPACE
-FROM ${REPOSITORY_URL}/${REPOSITORY_NAMESPACE}/openjdk:23-jdk-slim
+# 使用 OpenJDK 23 的官方基础镜像，这里使用 slim 版本，体积较小。
+FROM ${REPOSITORY_URL}/${REPOSITORY_NAMESPACE}/openjdk:23-jdk-slim  AS builder
 
 # 设置容器内的工作目录，后续操作会在此目录下执行。
 WORKDIR /app
@@ -12,9 +12,13 @@ COPY . /app
 # 在容器中执行 Maven 构建命令，构建项目并生成 JAR 文件。-DskipTests 参数会跳过测试，以加速构建过程。
 RUN ./mvnw clean package -DskipTestsdoc
 
-# 将构建好的 JAR 文件从 target 目录复制到容器的 /app 目录，并命名为 app.jar。
+
+FROM ${REPOSITORY_URL}/${REPOSITORY_NAMESPACE}/openjdk:23-jdk-slim
+WORKDIR /app
+
+# 将 builder 阶段构建好的 JAR 文件复制到容器的 /app 目录，并命名为 app.jar，builder阶段使用绝对路径。
 ARG PROJECT_VERSION
-COPY target/backend-boot-template-${PROJECT_VERSION}-SNAPSHOT.jar app.jar
+COPY --from=builder /app/target/backend-boot-template-${PROJECT_VERSION}-SNAPSHOT.jar app.jar
 
 # 容器启动时运行的命令
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]
