@@ -15,6 +15,7 @@ docker build \
   --build-arg REPOSITORY_NAMESPACE="$REPOSITORY_NAMESPACE" \
   --build-arg PROJECT_VERSION="$PROJECT_VERSION" \
   --build-arg PROJECT_PORT="$PROJECT_PORT" \
+  -f Kubernetes.Dockerfile \
   -t backend-boot-template:"$PROJECT_VERSION" .
 
 # 上传前需要先打tag，将本地镜像标记为阿里云镜像仓库地址
