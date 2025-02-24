@@ -28,15 +28,7 @@
     <id>maven-public</id>
     <name>vortexinfo maven central</name>
     <url>http://1.95.48.134:30081/repository/maven-public/</url>
-    <mirrorOf>*,!central</mirrorOf>
-  </mirror>
-
-  <!-- mirrorOf确保 Maven Central 始终存在并在私有仓库找不到时回退到此处 -->
-  <mirror>
-    <id>central</id>
-    <mirrorOf>*,!maven-public</mirrorOf>
-    <name>Maven Central</name>
-    <url>https://repo.maven.apache.org/maven2</url>
+    <mirrorOf>external:*</mirrorOf>
   </mirror>
 </mirrors>
 
