@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+  <servers>
+	<server> 
+      <id>maven-central</id>
+      <username>admin</username>
+      <password>Giga@163.com</password>
+    </server>
+    <server> 
+      <id>maven-releases</id>
+      <username>admin</username>
+      <password>Giga@163.com</password>
+    </server>
+	<server> 
+      <id>maven-snapshots</id>
+      <username>admin</username>
+      <password>Giga@163.com</password>
+    </server>
+  </servers>
+
+<mirrors>
+  <mirror>
+    <id>maven-public</id>
+    <name>vortexinfo maven central</name>
+    <url>http://1.95.48.134:30081/repository/maven-public/</url>
+    <mirrorOf>*</mirrorOf>
+  </mirror>
+</mirrors>
+
+</settings>

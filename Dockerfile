@@ -9,8 +9,10 @@ WORKDIR /app
 # 将当前项目目录（包含 mvnw 和 pom.xml 等文件）复制到 Docker 容器的 /app 目录。这样 Docker 容器中就能访问到 Maven Wrapper 和项目的源代码。
 COPY . /app
 
-# 在容器中执行 Maven 构建命令，构建项目并生成 JAR 文件。-DskipTests 参数会跳过测试，以加速构建过程。
-RUN ./mvnw clean package -DskipTestsdoc
+# 在容器中执行 Maven 构建命令，构建项目并生成 JAR 文件。
+# -DskipTests 参数会跳过测试，以加速构建过程。
+# -s 参数指定 Maven 使用 项目根目录的 settings.xml 文件作为配置文件。
+RUN ./mvnw clean package -DskipTestsdoc -s /app/settings.xml
 
 
 FROM ${REPOSITORY_URL}/${REPOSITORY_NAMESPACE}/openjdk:23-jdk-slim
