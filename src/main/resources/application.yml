@@ -29,3 +29,14 @@ springdoc:
       paths-to-match: '/**'
       packages-to-scan: org.visage.backend.controller
   default-flat-param-object: false
+
+# 配置健康检查
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true  # 启用 Kubernetes 探针支持
+  endpoints:
+    web:
+      exposure:
+        include: health  # 暴露健康检查端点
