@@ -9,6 +9,8 @@ public class WelcomeController {
 
     @GetMapping("/getVersion")
     public String hello() {
-        return "version：0.0.2";
+        // 获取当前 Pod 名称
+        String podName = System.getenv("HOSTNAME");
+        return "Handled by Pod: " + podName;
     }
 }
