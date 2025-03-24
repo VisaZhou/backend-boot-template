@@ -7,7 +7,7 @@ set -x
 source .env
 
 # 在容器外构建镜像
-./mvnw clean package -DskipTestsdoc -s settings.xml
+./mvnw clean package -s settings.xml
 
 # 登录阿里云的镜像仓库
 echo "$REPOSITORY_PASSWORD" | docker login --username="$REPOSITORY_USERNAME" "$REPOSITORY_URL" --password-stdin
