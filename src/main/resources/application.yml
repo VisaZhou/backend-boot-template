@@ -1,20 +1,11 @@
 spring:
+  profiles:
+    active: @active@
   application:
     name: backend-boot-template
   main:
     # 是否允许循环依赖，并且依靠三级缓存解决循环依赖问题
     allow-circular-references: true
-  datasource:
-    url: jdbc:mysql://mysql-service.default.svc.cluster.local:3306/backend-boot-template?serverTimezone=GMT%2B8&useLegacyDatetimeCode=false&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&autoReconnect=true
-    username: root
-    password: zxj201328
-    driver-class-name: com.mysql.cj.jdbc.Driver
-
-server:
-  port: 8080
-  compression:
-    enabled: true
-    mime-types: application/json
 
 springdoc:
   swagger-ui:
