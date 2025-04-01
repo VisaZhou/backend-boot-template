@@ -31,6 +31,7 @@
         <springboot.version>3.3.0</springboot.version>
         <java.version>23</java.version>
         <spring.cloud.alibaba.version>2023.0.3.2</spring.cloud.alibaba.version>
+        <org.flywaydb>11.5.0</org.flywaydb>
     </properties>
 
     <profiles>
@@ -68,6 +69,20 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jdbc</artifactId>
+        </dependency>
+
+        <!-- Flyway 数据库版本管理 -->
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>${org.flywaydb}</version>
+        </dependency>
+
+        <!-- Flyway 8.2 以上版本需要另外单独引入 flyway-mysql插件-->
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-mysql</artifactId>
+            <version>${org.flywaydb}</version>
         </dependency>
 
         <dependency>
