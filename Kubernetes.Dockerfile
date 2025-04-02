@@ -11,7 +11,9 @@ COPY . /app
 
 # 在容器中执行 Maven 构建命令，构建项目并生成 JAR 文件。
 # -s 参数指定 Maven 使用 项目根目录的 settings.xml 文件作为配置文件。
-RUN ./mvnw clean package -s /app/settings.xml
+# -Drevision=${PROJECT_VERSION} 用于设置项目版本号，对应于 pom.xml 中的 <version> 标签。
+ARG PROJECT_VERSION
+RUN ./mvnw clean package -Drevision=${PROJECT_VERSION} -s /app/settings.xml -X
 
 
 FROM ${REPOSITORY_URL}/${REPOSITORY_NAMESPACE}/openjdk:23-jdk-slim

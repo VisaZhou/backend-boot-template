@@ -10,7 +10,7 @@
     </parent>
     <groupId>org.visage</groupId>
     <artifactId>backend-boot-template</artifactId>
-    <version>0.0.3-SNAPSHOT</version>
+    <version>${revision}-SNAPSHOT</version>
     <name>backend-boot-template</name>
     <description>backend-boot-template</description>
     <url/>
