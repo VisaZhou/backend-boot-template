@@ -42,6 +42,7 @@ springdoc:
 management:
   endpoint:
     health:
+      show-details: always  # 显示健康检查详细信息
       probes:
         enabled: true  # 启用 Kubernetes 探针支持
   endpoints:

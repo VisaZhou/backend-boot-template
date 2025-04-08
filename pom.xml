@@ -71,6 +71,12 @@
             <artifactId>spring-boot-starter-data-jdbc</artifactId>
         </dependency>
 
+        <dependency>
+            <scope>compile</scope>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
         <!-- Flyway 数据库版本管理 -->
         <dependency>
             <groupId>org.flywaydb</groupId>
