@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.0</version>
+        <version>3.0.12</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.visage</groupId>
@@ -28,10 +28,11 @@
     </scm>
 
     <properties>
-        <springboot.version>3.3.0</springboot.version>
-        <java.version>23</java.version>
-        <spring.cloud.alibaba.version>2023.0.3.2</spring.cloud.alibaba.version>
-        <org.flywaydb>11.5.0</org.flywaydb>
+        <springboot.version>3.0.12</springboot.version>
+        <java.version>17</java.version>
+        <spring.cloud.alibaba.version>2022.0.0.0</spring.cloud.alibaba.version>
+        <org.flywaydb>9.22.3</org.flywaydb>
+        <sharding-sphere.version>5.2.1</sharding-sphere.version>
     </properties>
 
     <profiles>
@@ -133,6 +134,13 @@
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+
+        <!-- ShardingSphere JDBC -->
+        <dependency>
+            <groupId>org.apache.shardingsphere</groupId>
+            <artifactId>shardingsphere-jdbc-core-spring-boot-starter</artifactId>
+            <version>${sharding-sphere.version}</version>
         </dependency>
     </dependencies>
 

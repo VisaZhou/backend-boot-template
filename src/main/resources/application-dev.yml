@@ -12,11 +12,63 @@ spring:
         server-addr: localhost:8848,localhost:8858
         username: nacos
         password: nacos
-  datasource:
+
+  # shardingsphere 读写分离
+  shardingsphere:
+    datasource:
+      names: master,slave0
+      master:
+        type: com.zaxxer.hikari.HikariDataSource
+        url: jdbc:mysql://localhost:3306/backend_center?serverTimezone=GMT%2B8&useLegacyDatetimeCode=false&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&autoReconnect=true
+        username: root
+        password: zxj201328
+        driver-class-name: com.mysql.cj.jdbc.Driver
+      slave0:
+        type: com.zaxxer.hikari.HikariDataSource
+        url: jdbc:mysql://localhost:3316/backend_center?serverTimezone=GMT%2B8&useLegacyDatetimeCode=false&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&autoReconnect=true
+        username: root
+        password: zxj201328
+        driver-class-name: com.mysql.cj.jdbc.Driver
+    rules:
+      readwrite-splitting: # 读写分离规则
+        data-sources:
+          readwrite_ds: # readwrite_ds 是逻辑数据源名，就像一个代理，在代码里只操作它，不用关心哪个是主哪个是从。
+            static-strategy: # 静态策略，写死了哪个是主哪个是从
+              write-data-source-name: master # 写操作走主库
+              read-data-source-names:
+                - slave0 # 读操作走从库
+            load-balancer-name: round_robin # 如果有多个从库，会轮询分配读请求
+        load-balancers: # 读库负载均衡策略
+          round_robin:
+            type: ROUND_ROBIN # 类型为 ROUND_ROBIN 轮询
+    props:
+      sql-show: true # 控制台打印所有执行的 SQL
+
+  flyway:
+    # 由于和shardingsphere合用，Flyway 会连接 ShardingSphere 的逻辑数据源。
+    # 而它会尝试执行 SELECT * FROM information_schema.schemata 这样的语句，但 ShardingSphere 并不支持访问这些系统表。
+    # 所以需要手动配置物理数据源。
     url: jdbc:mysql://localhost:3306/backend_center?serverTimezone=GMT%2B8&useLegacyDatetimeCode=false&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&autoReconnect=true
-    username: root
+    user: root
     password: zxj201328
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    schemas: backend_center
+    # 是否启用flyway
+    enabled: true
+    # 编码格式，默认UTF-8
+    encoding: UTF-8
+    # 迁移sql脚本文件存放路径，默认db/migration
+    locations: classpath:db/migration
+    # 迁移sql脚本文件名称的前缀，默认V
+    sql-migration-prefix: V
+    # 迁移sql脚本文件名称的分隔符，默认2个下划线__
+    sql-migration-separator: __
+    # 迁移sql脚本文件名称的后缀
+    sql-migration-suffixes: .sql
+    # 迁移时是否进行校验，默认true
+    validate-on-migrate: true
+    # 当迁移发现数据库非空且存在没有元数据的表时，自动执行基准迁移，新建schema_version表
+    baseline-on-migrate: true
+
   data:
     redis:
       host: localhost
