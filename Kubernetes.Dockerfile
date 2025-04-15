@@ -1,7 +1,7 @@
 ARG REPOSITORY_URL
 ARG REPOSITORY_NAMESPACE
-# 使用 OpenJDK 23 的官方基础镜像，这里使用 slim 版本，体积较小。
-FROM ${REPOSITORY_URL}/${REPOSITORY_NAMESPACE}/openjdk:23-jdk-slim  AS builder
+# 使用 OpenJDK 17 的官方基础镜像，这里使用 slim 版本，体积较小。
+FROM ${REPOSITORY_URL}/${REPOSITORY_NAMESPACE}/openjdk:17-jdk-slim  AS builder
 
 # 设置容器内的工作目录，后续操作会在此目录下执行。
 WORKDIR /app
@@ -16,7 +16,7 @@ ARG PROJECT_VERSION
 RUN ./mvnw clean package -Drevision=${PROJECT_VERSION} -s /app/settings.xml -X
 
 
-FROM ${REPOSITORY_URL}/${REPOSITORY_NAMESPACE}/openjdk:23-jdk-slim
+FROM ${REPOSITORY_URL}/${REPOSITORY_NAMESPACE}/openjdk:17-jdk-slim
 WORKDIR /app
 
 # 将 builder 阶段构建好的 JAR 文件复制到容器的 /app 目录，并命名为 app.jar，builder阶段使用绝对路径。
