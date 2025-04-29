@@ -78,6 +78,14 @@
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
 
+        <!-- jedis 只用于开发环境，在编译时不会参与编译，不会被自动传递给其他依赖的模块 -->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+
         <!-- Flyway 数据库版本管理 -->
         <dependency>
             <groupId>org.flywaydb</groupId>
@@ -107,7 +115,6 @@
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
-            <scope>runtime</scope>
         </dependency>
 
         <dependency>
